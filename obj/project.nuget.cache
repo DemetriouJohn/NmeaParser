@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "p3z63lg2Mc2vY40KAqds3SF3mte9B7AHta2RMbiA+SjXfODjeIqkMLQjMKG5an2yvcRrYwwZw50GdnO715KMmg==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\Nmea Parser\\Nmea Parser.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\johnd\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\johnd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
