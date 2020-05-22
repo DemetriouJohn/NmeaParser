@@ -2,7 +2,7 @@
 
 namespace Nmea_Parser
 {
-    public class Class1
+    public class NmeaFactory
     {
     }
 }
