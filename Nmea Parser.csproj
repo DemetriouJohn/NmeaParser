@@ -8,6 +8,6 @@
     <Company>devsanon</Company>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtendedGeoCoordinate" Version="0.2.0"/>
+    <PackageReference Include="ExtendedGeoCoordinate" Version="0.2.1"/>
   </ItemGroup>
 </Project>
