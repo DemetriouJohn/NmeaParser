@@ -6,8 +6,14 @@
     <Version>0.1.0</Version>
     <Authors>John Demetriou</Authors>
     <Company>devsanon</Company>
+     <RootNamespace>NmeaParser</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExtendedGeoCoordinate" Version="1.0.0"/>
+  </ItemGroup>
+   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+    <_Parameter1>$(AssemblyName).Tests</_Parameter1> <!-- We use the value of AssemblyName to declare the value of the attribute -->
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

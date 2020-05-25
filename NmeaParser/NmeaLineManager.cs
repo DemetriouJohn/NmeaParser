@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nmea_Parser
+namespace NmeaParser
 {
     public class NmeaLineManager
     {
