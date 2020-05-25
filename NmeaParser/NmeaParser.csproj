@@ -2,18 +2,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Nmea_Parser</RootNamespace>
+    <RootNamespace>NmeaParser</RootNamespace>
     <PackageId>NmeaParser</PackageId>
     <Version>0.1.0</Version>
     <Authors>John Demetriou</Authors>
     <Company>devsanon</Company>
-     <RootNamespace>NmeaParser</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtendedGeoCoordinate" Version="1.0.0"/>
+    <PackageReference Include="ExtendedGeoCoordinate" Version="2.0.0"/>
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-    <_Parameter1>$(AssemblyName).Tests</_Parameter1> <!-- We use the value of AssemblyName to declare the value of the attribute -->
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 </Project>
