@@ -23,6 +23,6 @@ jobs:
     - name: Build
       run: dotnet build ~/work/NmeaParser/NmeaParser/NmeaParser/NmeaParser.csproj --configuration Release --no-restore
     - name: Install dependencies for test project
-      run: dotnet restore ~/work/NmeaParser/NmeaParser/NmeaParser.Test/
+      run: dotnet restore ~/work/NmeaParser/NmeaParser/NmeaParser.Tests/
     - name: Test
-      run: dotnet test ~/work/NmeaParser/NmeaParser/NmeaParser.Test/NmeaParser.Test.csproj --no-restore --verbosity normal
+      run: dotnet test ~/work/NmeaParser/NmeaParser/NmeaParser.Tests/NmeaParser.Tests.csproj --no-restore --verbosity normal
