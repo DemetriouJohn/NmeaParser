@@ -9,8 +9,8 @@
     <Company>devsanon</Company>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtendedGeoCoordinate" Version="2.1.0"/>
-    <PackageReference Include="SmartExtensionMethods" Version="0.5.0"/>
+    <PackageReference Include="ExtendedGeoCoordinate" Version="2.1.1"/>
+    <PackageReference Include="SmartExtensionMethods" Version="2.4.1"/>
   </ItemGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
