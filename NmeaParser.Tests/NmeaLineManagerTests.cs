@@ -1,6 +1,4 @@
-using System;
 using Xunit;
-using NmeaParser;
 
 namespace NmeaParser.Tests
 {
