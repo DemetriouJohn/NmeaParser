@@ -1,6 +1,6 @@
 namespace NmeaParser
 {
-    public enum DataStatus
+    public enum RmbDataStatus
     {
         /// <summary>
         /// Ok

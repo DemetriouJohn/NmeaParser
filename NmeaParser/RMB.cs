@@ -2,7 +2,7 @@ namespace NmeaParser
 {
     public class RMB
     {
-        public RMB(DataStatus status, double crossTrackError, double originWaypointId, double destinationWaypointId, double destinationLatitude, double destinationLongitude, double rangeToDestination, double trueBearing, double velocity, bool arrived)
+        public RMB(RmbDataStatus status, double crossTrackError, double originWaypointId, double destinationWaypointId, double destinationLatitude, double destinationLongitude, double rangeToDestination, double trueBearing, double velocity, bool arrived)
         {
             Status = status;
             CrossTrackError = crossTrackError;
@@ -19,7 +19,7 @@ namespace NmeaParser
         /// <summary>
         /// Data Status
         /// </summary>
-        public DataStatus Status { get; }
+        public RmbDataStatus Status { get; }
 
         /// <summary>
         /// Cross-track error (steer left when negative, right when positive)

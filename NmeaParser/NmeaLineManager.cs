@@ -38,7 +38,7 @@ namespace NmeaParser
 
             var nmeaValues = trimmed.Split(',');
 
-            var status = nmeaValues[0] == "A" ? DataStatus.Ok : DataStatus.Warning;
+            var status = nmeaValues[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
             double crossTrackError = double.NaN;
             int originWaypointId, destinationWaypointId;
             if (double.TryParse(nmeaValues[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var tmp))
