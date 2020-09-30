@@ -28,7 +28,7 @@ namespace NmeaParser.Tests
             const string line = "$GPRMB,A,0.66,L,003,004,4917.24,N,12309.57,W,001.3,052.5,000.5,V*20";
 
             var rmb = new NmeaLineManager().ParseRmb(line);
-            Assert.Equal(DataStatus.Ok, rmb.Status);
+            Assert.Equal(RmbDataStatus.Ok, rmb.Status);
             Assert.Equal(-0.66, rmb.CrossTrackError);
             Assert.Equal(3, rmb.OriginWaypointId);
             Assert.Equal(4, rmb.DestinationWaypointId);
@@ -36,7 +36,7 @@ namespace NmeaParser.Tests
             Assert.Equal(-123.1595, rmb.DestinationLongitude);
             Assert.Equal(1.3, rmb.RangeToDestination);
             Assert.Equal(52.5, rmb.TrueBearing);
-            Assert.Equal(false, rmb.Arrived);
+            Assert.False(rmb.Arrived);
         }
     }
 }
