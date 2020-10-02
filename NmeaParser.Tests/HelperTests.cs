@@ -21,7 +21,7 @@ namespace NmeaParser.Tests
 
             Assert.Equal(-49.287333, Helper.StringToLatitude(lat, orientation), 6);
         }
-        
+
         [Fact]
         public void StringToLongitudeValidValueWest()
         {
