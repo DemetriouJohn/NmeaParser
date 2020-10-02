@@ -1,4 +1,4 @@
-namespace NmeaParser
+namespace NmeaParser.RMB
 {
     public enum RmbDataStatus
     {

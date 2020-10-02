@@ -1,4 +1,5 @@
 using Xunit;
+using NmeaParser.RMB;
 
 namespace NmeaParser.Tests
 {

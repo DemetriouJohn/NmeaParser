@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-
+using NmeaParser.RMB;
 namespace NmeaParser
 {
     public class NmeaLineManager
@@ -27,7 +27,7 @@ namespace NmeaParser
             return checksum == givenChecksum;
         }
 
-        public RMB ParseRmb(string nmeaLine)
+        public RMBLine ParseRmb(string nmeaLine)
         {
             if (nmeaLine == null || !ValidateLine(nmeaLine))
             {
@@ -63,7 +63,7 @@ namespace NmeaParser
             double.TryParse(nmeaValues[11], NumberStyles.Float, CultureInfo.InvariantCulture, out var velocity);
 
             var arrived = nmeaValues[12] == "A";
-            return new RMB(status,
+            return new RMBLine(status,
                 crossTrackError,
                 originWaypointId,
                 destinationWaypointId,

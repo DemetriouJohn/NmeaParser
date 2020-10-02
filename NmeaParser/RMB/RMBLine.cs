@@ -1,8 +1,17 @@
-namespace NmeaParser
+namespace NmeaParser.RMB
 {
-    public class RMB
+    public class RMBLine
     {
-        public RMB(RmbDataStatus status, double crossTrackError, double originWaypointId, double destinationWaypointId, double destinationLatitude, double destinationLongitude, double rangeToDestination, double trueBearing, double velocity, bool arrived)
+        public RMBLine(RmbDataStatus status, 
+                   double crossTrackError, 
+                   double originWaypointId, 
+                   double destinationWaypointId, 
+                   double destinationLatitude, 
+                   double destinationLongitude, 
+                   double rangeToDestination, 
+                   double trueBearing, 
+                   double velocity, 
+                   bool arrived)
         {
             Status = status;
             CrossTrackError = crossTrackError;
