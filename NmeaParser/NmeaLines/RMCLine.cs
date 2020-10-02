@@ -1,16 +1,23 @@
 using ExtendedGeoCoordinate;
 using System;
 
-namespace NmeaParser.RMC
+namespace NmeaParser.NmeaLines
 {
-    public class RMCLine
+    public class RMCLine : NmeaMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Rmc"/> class.
         /// </summary>
         /// <param name="type">The message type</param>
         /// <param name="message">The NMEA message values.</param>
-        public RMCLine(DateTimeOffset fixTime, bool active, double latitude, double longitude, double speed, double course, double magneticVariation)
+        public RMCLine(DateTimeOffset fixTime,
+            bool active,
+            double latitude,
+            double longitude,
+            double speed,
+            double course,
+            double magneticVariation)
+            : base(NmeaType.Rmc)
         {
             FixTime = fixTime;
             Active = active;

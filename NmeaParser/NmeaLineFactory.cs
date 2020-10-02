@@ -1,12 +1,11 @@
-﻿using NmeaParser.RMB;
-using NmeaParser.RMC;
+﻿using NmeaParser.NmeaLines;
 using SmartExtensions;
 using System;
 using System.Globalization;
 
 namespace NmeaParser
 {
-    public class NmeaLineManager
+    public class NmeaLineFactory
     {
         internal bool ValidateLine(string nmeaLine)
         {
@@ -30,16 +29,29 @@ namespace NmeaParser
             return checksum == givenChecksum;
         }
 
-        public RMBLine ParseRmb(string nmeaLine)
+        public NmeaMessage GetLine(string nmeaLine)
         {
             if (nmeaLine == null || !ValidateLine(nmeaLine))
             {
-                throw new ArgumentException("Invalid RMB", nameof(nmeaLine));
+                throw new ArgumentException("Invalid NMEA Line", nameof(nmeaLine));
             }
 
             var trimmed = RemoveNmeaDescription(nmeaLine);
+            if (trimmed.StartsWith(NmeaMessage.RMBCode))
+            {
+                return ParseRmb(trimmed);
+            }
+            else if (trimmed.StartsWith(NmeaMessage.RMCCode))
+            {
+                return ParseRmc(trimmed);
+            }
 
-            var nmeaValues = trimmed.Split(',');
+            return default;
+        }
+
+        public RMBLine ParseRmb(string nmeaLine)
+        {
+            var nmeaValues = nmeaLine.Split(',');
 
             var status = nmeaValues[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
             double crossTrackError = double.NaN;

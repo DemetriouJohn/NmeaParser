@@ -1,5 +1,5 @@
 using Xunit;
-using NmeaParser.RMB;
+using NmeaParser.NmeaLines;
 
 namespace NmeaParser.Tests
 {
@@ -11,7 +11,7 @@ namespace NmeaParser.Tests
         [InlineData("$GPGSV,2,1,08,01,40,083,46,02,17,308,41,12,07,344,39,14,22,228,45*75")]
         public void ValidateChecksum_ValidLines_True(string nmeaLine)
         {
-            Assert.True(new NmeaLineManager().ValidateChecksum(nmeaLine));
+            Assert.True(new NmeaLineFactory().ValidateChecksum(nmeaLine));
         }
 
         [Theory]
@@ -20,7 +20,7 @@ namespace NmeaParser.Tests
         [InlineData("$GPGSV,2,1,08,01,40,083,46,02,17,308,41,12,07,344,39,14,22,228,45*45")]
         public void ValidateChecksum_InValidLines_False(string nmeaLine)
         {
-            Assert.False(new NmeaLineManager().ValidateChecksum(nmeaLine));
+            Assert.False(new NmeaLineFactory().ValidateChecksum(nmeaLine));
         }
 
         [Fact]
@@ -28,7 +28,9 @@ namespace NmeaParser.Tests
         {
             const string line = "$GPRMB,A,0.66,L,003,004,4917.24,N,12309.57,W,001.3,052.5,000.5,V*20";
 
-            var rmb = new NmeaLineManager().ParseRmb(line);
+            var nmeaMsg = new NmeaLineFactory().GetLine(line);
+            Assert.Equal(NmeaType.Rmb, nmeaMsg.NmeaType);
+            var rmb = (RMBLine)nmeaMsg;
             Assert.Equal(RmbDataStatus.Ok, rmb.Status);
             Assert.Equal(-0.66, rmb.CrossTrackError);
             Assert.Equal(3, rmb.OriginWaypointId);

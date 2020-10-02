@@ -1,8 +1,8 @@
 using ExtendedGeoCoordinate;
 
-namespace NmeaParser.RMB
+namespace NmeaParser.NmeaLines
 {
-    public class RMBLine
+    public class RMBLine : NmeaMessage
     {
         public RMBLine(RmbDataStatus status,
                    double crossTrackError,
@@ -13,7 +13,7 @@ namespace NmeaParser.RMB
                    double rangeToDestination,
                    double trueBearing,
                    double velocity,
-                   bool arrived)
+                   bool arrived) : base(NmeaType.Rmb)
         {
             Status = status;
             CrossTrackError = crossTrackError;
