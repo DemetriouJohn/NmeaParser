@@ -1,3 +1,4 @@
+using ExtendedGeoCoordinate;
 using System;
 
 namespace NmeaParser.RMC
@@ -13,11 +14,8 @@ namespace NmeaParser.RMC
         {
             FixTime = fixTime;
             Active = active;
-            Latitude = latitude;
-            Longitude = longitude;
-            Speed = speed;
-            Course = course;
             MagneticVariation = magneticVariation;
+            GeoCoordinate = new GeoCoordinate(latitude, longitude, 0, 0, 0, speed, course);
         }
 
         /// <summary>
@@ -31,28 +29,13 @@ namespace NmeaParser.RMC
         public bool Active { get; }
 
         /// <summary>
-        /// Latitude
-        /// </summary>
-        public double Latitude { get; }
-
-        /// <summary>
-        /// Longitude
-        /// </summary>
-        public double Longitude { get; }
-
-        /// <summary>
-        /// Speed over the ground in knots
-        /// </summary>
-        public double Speed { get; }
-
-        /// <summary>
-        /// Track angle in degrees True
-        /// </summary>
-        public double Course { get; }
-
-        /// <summary>
         /// Magnetic Variation
         /// </summary>
         public double MagneticVariation { get; }
+
+        /// <summary>
+        /// Position
+        /// </summary>
+        public GeoCoordinate GeoCoordinate { get; }
     }
 }

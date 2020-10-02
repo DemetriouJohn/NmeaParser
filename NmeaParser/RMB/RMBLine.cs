@@ -1,28 +1,29 @@
+using ExtendedGeoCoordinate;
+
 namespace NmeaParser.RMB
 {
     public class RMBLine
     {
-        public RMBLine(RmbDataStatus status, 
-                   double crossTrackError, 
-                   double originWaypointId, 
-                   double destinationWaypointId, 
-                   double destinationLatitude, 
-                   double destinationLongitude, 
-                   double rangeToDestination, 
-                   double trueBearing, 
-                   double velocity, 
+        public RMBLine(RmbDataStatus status,
+                   double crossTrackError,
+                   double originWaypointId,
+                   double destinationWaypointId,
+                   double destinationLatitude,
+                   double destinationLongitude,
+                   double rangeToDestination,
+                   double trueBearing,
+                   double velocity,
                    bool arrived)
         {
             Status = status;
             CrossTrackError = crossTrackError;
             OriginWaypointId = originWaypointId;
             DestinationWaypointId = destinationWaypointId;
-            DestinationLatitude = destinationLatitude;
-            DestinationLongitude = destinationLongitude;
             RangeToDestination = rangeToDestination;
             TrueBearing = trueBearing;
             Velocity = velocity;
             Arrived = arrived;
+            DestinationGeoCoordinate = new GeoCoordinate(destinationLatitude, destinationLongitude);
         }
 
         /// <summary>
@@ -46,16 +47,6 @@ namespace NmeaParser.RMB
         public double DestinationWaypointId { get; }
 
         /// <summary>
-        /// Destination Latitude
-        /// </summary>
-        public double DestinationLatitude { get; }
-
-        /// <summary>
-        /// Destination Longitude
-        /// </summary>
-        public double DestinationLongitude { get; }
-
-        /// <summary>
         /// Range to destination in nautical miles
         /// </summary>
         public double RangeToDestination { get; }
@@ -74,5 +65,10 @@ namespace NmeaParser.RMB
         /// Arrived (<c>true</c> if arrived)
         /// </summary>
         public bool Arrived { get; }
+
+        /// <summary>
+        /// Destination GeoCoordinate position
+        /// </summary>
+        public GeoCoordinate DestinationGeoCoordinate { get; }
     }
 }

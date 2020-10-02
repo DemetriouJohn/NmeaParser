@@ -33,8 +33,8 @@ namespace NmeaParser.Tests
             Assert.Equal(-0.66, rmb.CrossTrackError);
             Assert.Equal(3, rmb.OriginWaypointId);
             Assert.Equal(4, rmb.DestinationWaypointId);
-            Assert.Equal(49.287333, rmb.DestinationLatitude, 6);
-            Assert.Equal(-123.1595, rmb.DestinationLongitude);
+            Assert.Equal(49.287333, rmb.DestinationGeoCoordinate.Latitude, 6);
+            Assert.Equal(-123.1595, rmb.DestinationGeoCoordinate.Longitude);
             Assert.Equal(1.3, rmb.RangeToDestination);
             Assert.Equal(52.5, rmb.TrueBearing);
             Assert.False(rmb.Arrived);
