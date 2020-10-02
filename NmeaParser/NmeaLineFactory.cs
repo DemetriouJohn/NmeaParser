@@ -29,21 +29,43 @@ namespace NmeaParser
             return checksum == givenChecksum;
         }
 
-        public NmeaMessage GetLine(string nmeaLine)
+        public NmeaMessage ParseLine(string nmeaLine)
         {
             if (nmeaLine == null || !ValidateLine(nmeaLine))
             {
                 throw new ArgumentException("Invalid NMEA Line", nameof(nmeaLine));
             }
 
-            var trimmed = RemoveNmeaDescription(nmeaLine);
+            var trimmed = RemoveConstellation(nmeaLine);
+
+            var nmeaType = GetNmeaType(trimmed);
+
+            trimmed = RemoveNmeaDescription(trimmed);
+            switch (nmeaType)
+            {
+
+                case NmeaType.Rma:
+                    break;
+                case NmeaType.Rmb:
+                    return ParseRmb(trimmed);
+                case NmeaType.Rmc:
+                    return ParseRmc(trimmed);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nmeaType));
+            }
+
+            return default;
+        }
+
+        private NmeaType GetNmeaType(string trimmed)
+        {
             if (trimmed.StartsWith(NmeaMessage.RMBCode))
             {
-                return ParseRmb(trimmed);
+                return NmeaType.Rmb;
             }
             else if (trimmed.StartsWith(NmeaMessage.RMCCode))
             {
-                return ParseRmc(trimmed);
+                return NmeaType.Rmc;
             }
 
             return default;
@@ -130,9 +152,14 @@ namespace NmeaParser
                 magneticVariation);
         }
 
+        private string RemoveConstellation(string nmeaLine)
+        {
+            return nmeaLine.Substring(3);
+        }
+
         private string RemoveNmeaDescription(string nmeaLine)
         {
-            return nmeaLine.Substring(7);
+            return nmeaLine.Substring(4);
         }
     }
 }

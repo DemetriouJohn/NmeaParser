@@ -28,7 +28,7 @@ namespace NmeaParser.Tests
         {
             const string line = "$GPRMB,A,0.66,L,003,004,4917.24,N,12309.57,W,001.3,052.5,000.5,V*20";
 
-            var nmeaMsg = new NmeaLineFactory().GetLine(line);
+            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
             Assert.Equal(NmeaType.Rmb, nmeaMsg.NmeaType);
             var rmb = (RMBLine)nmeaMsg;
             Assert.Equal(RmbDataStatus.Ok, rmb.Status);
