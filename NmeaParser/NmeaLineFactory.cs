@@ -114,13 +114,7 @@ namespace NmeaParser
 
         public RMCLine ParseRmc(string nmeaLine)
         {
-            if (nmeaLine == null || !ValidateLine(nmeaLine))
-            {
-                throw new ArgumentException("Invalid RMC", "message");
-            }
-
-            var trimmed = RemoveNmeaDescription(nmeaLine);
-            var nmeaValues = trimmed.Split(',');
+            var nmeaValues = nmeaLine.Split(',');
             DateTimeOffset fixTime = default;
             if (nmeaValues[8].Length == 6 && nmeaValues[0].Length >= 6)
             {

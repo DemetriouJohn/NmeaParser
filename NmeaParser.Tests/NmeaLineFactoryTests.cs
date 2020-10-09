@@ -1,9 +1,10 @@
 using Xunit;
 using NmeaParser.NmeaLines;
+using System;
 
 namespace NmeaParser.Tests
 {
-    public class NmeaLineManagerTests
+    public class NmeaLineFactoryTests
     {
         [Theory]
         [InlineData("$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47")]
@@ -40,6 +41,23 @@ namespace NmeaParser.Tests
             Assert.Equal(1.3, rmb.RangeToDestination);
             Assert.Equal(52.5, rmb.TrueBearing);
             Assert.False(rmb.Arrived);
+        }
+
+        [Fact]
+        public void ParseRmcLine()
+        {
+            const string line = "$GNRMC,231011.00,A,3403.47163804,N,11711.80926595,W,0.019,11.218,201217,12.0187,E,D*01";
+
+            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
+            Assert.Equal(NmeaType.Rmc, nmeaMsg.NmeaType);
+            var rmc = (RMCLine)nmeaMsg;
+            Assert.Equal(new DateTimeOffset(2017, 12, 20, 23, 10, 11, TimeSpan.Zero), rmc.FixTime);
+            Assert.Equal(34.057860634, rmc.GeoCoordinate.Latitude, 10);
+            Assert.Equal(-117.19682109916667, rmc.GeoCoordinate.Longitude, 10);
+            Assert.True(rmc.Active);
+            Assert.Equal(11.218, rmc.GeoCoordinate.Course);
+            Assert.Equal(12.0187, rmc.MagneticVariation);
+            Assert.Equal(0.019, rmc.GeoCoordinate.Speed);
         }
     }
 }
