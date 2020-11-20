@@ -71,7 +71,7 @@ namespace NmeaParser
             return default;
         }
 
-        public RMBLine ParseRmb(string nmeaLine)
+        private RMBLine ParseRmb(string nmeaLine)
         {
             var nmeaValues = nmeaLine.Split(',');
 
@@ -112,7 +112,7 @@ namespace NmeaParser
                 arrived);
         }
 
-        public RMCLine ParseRmc(string nmeaLine)
+        private RMCLine ParseRmc(string nmeaLine)
         {
             var nmeaValues = nmeaLine.Split(',');
             DateTimeOffset fixTime = default;
