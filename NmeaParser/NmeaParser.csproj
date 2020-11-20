@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Nmea_Parser</RootNamespace>
-    <RootNamespace>NmeaParser</RootNamespace>
-    <PackageId>NmeaParser</PackageId>
-    <Version>0.1.0</Version>
+    <PackageId>ExtendedNmeaParser</PackageId>
+    <Version>1.0</Version>
     <Authors>John Demetriou</Authors>
     <Company>devsanon</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageDescription>An Nmea GPS line parser</PackageDescription>
+    <RootNamespace>NmeaParser</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExtendedGeoCoordinate" Version="3.1.0" />
