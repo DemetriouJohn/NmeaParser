@@ -1,7 +1,9 @@
-﻿namespace NmeaParser
+﻿using NmeaParser.NmeaLines;
+
+namespace NmeaParser
 {
     public interface INmeaHandler
     {
-        void ParseLine(string nmeaLine);
+        NmeaType ParseLine(string nmeaLine);
     }
 }

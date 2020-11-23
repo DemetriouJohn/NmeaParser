@@ -1,4 +1,6 @@
-﻿namespace NmeaParser
+﻿using NmeaParser.NmeaLines;
+
+namespace NmeaParser
 {
     public class NmeaHandler : INmeaHandler
     {
@@ -11,6 +13,11 @@
             m_nmeaLineFactory = new NmeaLineFactory();
         }
 
-        public void ParseLine(string nmeaLine) => m_systemState.Handle(m_nmeaLineFactory.ParseLine(nmeaLine) as dynamic);
+        public NmeaType ParseLine(string nmeaLine)
+        {
+            var nmeaMessage = m_nmeaLineFactory.ParseLine(nmeaLine);
+            m_systemState.Handle(nmeaMessage as dynamic);
+            return nmeaMessage.NmeaType;
+        }
     }
 }
