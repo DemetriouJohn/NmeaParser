@@ -13,6 +13,7 @@ For each upcoming version there are milestones to explain what new features will
 
 1. RMB
 2. RMC
+3. GGA
 
 ## Contributing
 Contributions are always welcome! Please feel free to submit pull requests and to open issues. I prefer to have tests on all public methods if possible and where ever else makes sense.
