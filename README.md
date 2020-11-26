@@ -20,6 +20,6 @@ Contributions are always welcome! Please feel free to submit pull requests and t
 
 ## Usage
 
-Use static method `NmeaHandler.GetNmeaHandler` to retrieve an instance of `INmeaHandler`.
-Pass full Nmea Line to method `ParseLine`. Line type will be returned as part of enum `NmeaType`.
-From `INmeaHandler` you have access to `ISystemState`, from which you can get any information you want, including complete instances of parsed lines
+Use static method `NmeaHandler.GetNmeaHandler` to retrieve an instance of `INmeaHandler`.</br>
+Pass full Nmea Line to method `ParseLine`. Line type will be returned as part of enum `NmeaType`.</br>
+From `INmeaHandler` you have access to `ISystemState`, from which you can get any information you want, including complete instances of parsed lines.</br>
