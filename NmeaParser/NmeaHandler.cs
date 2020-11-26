@@ -8,7 +8,7 @@ namespace NmeaParser
         private readonly SystemState m_systemState = new SystemState();
         public ISystemState SystemState => m_systemState;
 
-        public NmeaHandler()
+        private NmeaHandler()
         {
             m_nmeaLineFactory = new NmeaLineFactory();
         }
@@ -19,5 +19,7 @@ namespace NmeaParser
             m_systemState.Handle(nmeaMessage as dynamic);
             return nmeaMessage.NmeaType;
         }
+
+        public static INmeaHandler GetNmeaHandler() => new NmeaHandler();
     }
 }
