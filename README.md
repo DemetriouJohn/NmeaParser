@@ -9,7 +9,7 @@ Able to Parse RMC and RMB Nmea lines and can provide a stateful object with pars
 ## Upcoming versions
 For each upcoming version there are milestones to explain what new features will be added per version. For any completed issue a new minor version will be deployed to nuget.
 
-## Currently supported Nmeas lines
+## Currently supported Nmea lines
 
 1. RMB
 2. RMC
