@@ -16,6 +16,11 @@ namespace NmeaParser
         public NmeaType ParseLine(string nmeaLine)
         {
             var nmeaMessage = m_nmeaLineFactory.ParseLine(nmeaLine);
+            if (nmeaMessage.IsEmpty)
+            {
+                return NmeaType.BadMessage;
+            }
+
             m_systemState.Handle(nmeaMessage as dynamic);
             return nmeaMessage.NmeaType;
         }

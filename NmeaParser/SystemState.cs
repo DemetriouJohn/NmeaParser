@@ -15,6 +15,7 @@ namespace NmeaParser
         /// The Latest RMC line parsed
         /// </summary>
         public RMCLine Rmc { get; private set; }
+        public GgaLine Gga { get; private set; }
 
         /// <summary>
         /// Velocity towards destination in knots
@@ -50,6 +51,19 @@ namespace NmeaParser
         {
             Rmb = nmeaMessage;
             Velocity = nmeaMessage.Velocity;
+        }
+
+        internal void Handle(GgaLine nmeaMessage)
+        {
+            Gga = nmeaMessage;
+            CurrentPosition = new GeoCoordinate(nmeaMessage.Position.Latitude,
+                nmeaMessage.Position.Longitude,
+                nmeaMessage.Position.Altitude,
+                nmeaMessage.Position.AltitudeUnits,
+                CurrentPosition.HorizontalAccuracy,
+                CurrentPosition.VerticalAccuracy,
+                CurrentPosition.Speed,
+                CurrentPosition.Course);
         }
 
         internal void Handle(RMCLine nmeaMessage)

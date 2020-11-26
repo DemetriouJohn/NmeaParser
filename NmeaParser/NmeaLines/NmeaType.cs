@@ -2,8 +2,10 @@
 {
     public enum NmeaType
     {
+        BadMessage,
         Rma,
         Rmb,
-        Rmc
+        Rmc,
+        Gga
     }
 }

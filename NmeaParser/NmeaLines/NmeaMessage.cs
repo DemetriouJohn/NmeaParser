@@ -5,12 +5,22 @@
         internal const string RMCCode = "RMC";
 
         internal const string RMBCode = "RMB";
+        internal const string RMACode = "RMA";
+        internal const string GGACode = "GGA";
+        internal static readonly NmeaMessage Empty = new NmeaMessage();
+
+        private NmeaMessage()
+        {
+            IsEmpty = true;
+        }
 
         public NmeaMessage(NmeaType nmeaType)
         {
+            IsEmpty = false;
             NmeaType = nmeaType;
         }
 
         public NmeaType NmeaType { get; }
+        public bool IsEmpty { get; }
     }
 }
