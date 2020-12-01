@@ -36,7 +36,7 @@ namespace NmeaParser
                 throw new ArgumentException("Invalid NMEA Line", nameof(nmeaLine));
             }
 
-            var trimmed = RemoveConstellation(nmeaLine);
+            var trimmed = RemoveConstellationAndChecksum(nmeaLine);
 
             var nmeaType = GetNmeaType(trimmed);
 
@@ -83,7 +83,7 @@ namespace NmeaParser
             TimeSpan timeSinceLastUpdate;
             if (message[12].TryToDouble(out var timeInSeconds))
             {
-                timeSinceLastUpdate = TimeSpan.FromSeconds(timeInSeconds);
+                timeSinceLastUpdate = timeInSeconds.Seconds();
             }
             else
             {
@@ -212,9 +212,10 @@ namespace NmeaParser
                 magneticVariation);
         }
 
-        private string RemoveConstellation(string nmeaLine)
+        private string RemoveConstellationAndChecksum(string nmeaLine)
         {
-            return nmeaLine.Substring(3);
+            var constellationRemoved = nmeaLine.Substring(3);
+            return constellationRemoved.Split('*')[0];
         }
 
         private string RemoveNmeaDescription(string nmeaLine)

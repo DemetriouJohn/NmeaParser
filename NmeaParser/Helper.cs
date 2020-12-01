@@ -1,3 +1,4 @@
+using SmartExtensions;
 using System;
 using System.Globalization;
 
@@ -46,7 +47,7 @@ namespace NmeaParser
             {
                 return new TimeSpan(int.Parse(value.Substring(0, 2), CultureInfo.InvariantCulture),
                                    int.Parse(value.Substring(2, 2), CultureInfo.InvariantCulture), 0)
-                                   .Add(TimeSpan.FromSeconds(double.Parse(value.Substring(4), CultureInfo.InvariantCulture)));
+                                   .Add((double.Parse(value.Substring(4), CultureInfo.InvariantCulture)).Seconds());
             }
             return TimeSpan.Zero;
         }

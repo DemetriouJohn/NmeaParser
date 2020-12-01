@@ -1,6 +1,7 @@
 using Xunit;
 using NmeaParser.NmeaLines;
 using System;
+using SmartExtensions;
 
 namespace NmeaParser.Tests
 {
@@ -58,6 +59,29 @@ namespace NmeaParser.Tests
             Assert.Equal(11.218, rmc.GeoCoordinate.Course);
             Assert.Equal(12.0187, rmc.MagneticVariation);
             Assert.Equal(0.019, rmc.GeoCoordinate.Speed);
+        }
+
+        [Fact]
+        public void ParseGgaLine()
+        {
+            const string line = "$GPGGA,115739.00,4158.8441367,N,09147.4416929,W,4,13,0.9,255.747,M,-32.00,M,01,0000*6E";
+
+            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
+            Assert.Equal(NmeaType.Gga, nmeaMsg.NmeaType);
+            var gga = (GgaLine)nmeaMsg;
+
+            Assert.Equal(Helper.StringToTimeSpan("115739"), gga.FixTime);
+            Assert.Equal(41.9807356117, gga.Position.Latitude, 10);
+            Assert.Equal(-91.7906948817, gga.Position.Longitude, 10);
+            Assert.Equal(FixQuality.Rtk, gga.Quality);
+            Assert.Equal(13, gga.NumberOfSatellites);
+            Assert.Equal(0.9, gga.Hdop);
+            Assert.Equal(255.747, gga.Position.Altitude);
+            Assert.Equal("M", gga.Position.AltitudeUnits);
+            Assert.Equal(-32, gga.GeoidalSeparation);
+            Assert.Equal("M", gga.GeoidalSeparationUnits);
+            Assert.Equal(1.Seconds(), gga.TimeSinceLastDgpsUpdate);
+            Assert.Equal(0, gga.DgpsStationId);
         }
     }
 }
