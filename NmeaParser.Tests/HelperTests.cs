@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace NmeaParser.Tests
@@ -38,6 +39,12 @@ namespace NmeaParser.Tests
             var orientation = "E";
 
             Assert.Equal(123.1595, Helper.StringToLongitude(lat, orientation), 6);
+        }
+
+        [Fact]
+        public void StringToTimeStampTest()
+        {
+            Assert.Equal(new TimeSpan(11,57,39), Helper.StringToTimeSpan("115739"));
         }
     }
 }
