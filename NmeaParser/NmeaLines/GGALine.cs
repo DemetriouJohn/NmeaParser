@@ -88,9 +88,5 @@ namespace NmeaParser.NmeaLines
         /// Differential Reference Station ID
         /// </summary>
         public int DgpsStationId { get; }
-
-        /// <summary>
-        /// Fix quality indicater
-        /// </summary>
     }
 }
