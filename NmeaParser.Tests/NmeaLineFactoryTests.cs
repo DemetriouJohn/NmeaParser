@@ -73,7 +73,7 @@ namespace NmeaParser.Tests
             Assert.Equal(Helper.StringToTimeSpan("115739"), gga.FixTime);
             Assert.Equal(41.9807356117, gga.Position.Latitude, 10);
             Assert.Equal(-91.7906948817, gga.Position.Longitude, 10);
-            Assert.Equal(FixQuality.Rtk, gga.Quality);
+            Assert.Equal(FixQuality.RealTimeKinematic, gga.Quality);
             Assert.Equal(13, gga.NumberOfSatellites);
             Assert.Equal(0.9, gga.Hdop);
             Assert.Equal(255.747, gga.Position.Altitude);
