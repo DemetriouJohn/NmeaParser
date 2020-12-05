@@ -13,6 +13,7 @@ namespace NmeaParser
         RMBLine Rmb { get; }
         RMCLine Rmc { get; }
         double Speed { get; }
-        double Velocity { get; }
+        double VelocityInKnots { get; }
+        VTGLine Vtg { get; }
     }
 }

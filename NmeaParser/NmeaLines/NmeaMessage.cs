@@ -3,10 +3,11 @@
     public class NmeaMessage
     {
         internal const string RMCCode = "RMC";
-
         internal const string RMBCode = "RMB";
         internal const string RMACode = "RMA";
         internal const string GGACode = "GGA";
+        internal const string VTGCode = "VTG";
+
         internal static readonly NmeaMessage Empty = new NmeaMessage();
 
         private NmeaMessage()

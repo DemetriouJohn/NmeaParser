@@ -52,11 +52,27 @@ namespace NmeaParser
                     return ParseRmc(trimmed);
                 case NmeaType.Gga:
                     return ParseGga(trimmed);
+                case NmeaType.Vtg:
+                    return ParseVtg(trimmed);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nmeaType));
             }
 
             return default;
+        }
+
+        private NmeaMessage ParseVtg(string nmeaLine)
+        {
+            var message = nmeaLine.Split(',');
+            message[0].TryToDouble(out var courseTrue);
+            message[2].TryToDouble(out var courseMagnetic);
+            message[4].TryToDouble(out var speedKnots);
+            message[6].TryToDouble(out var speedKph);
+
+            return new VTGLine(courseTrue,
+                courseMagnetic,
+                speedKnots,
+                speedKph);
         }
 
         private NmeaMessage ParseGga(string nmeaLine)
@@ -65,8 +81,9 @@ namespace NmeaParser
             var fixTime = Helper.StringToTimeSpan(message[0]);
             var latitude = Helper.StringToLatitude(message[1], message[2]);
             var longitude = Helper.StringToLongitude(message[3], message[4]);
-            var quality = (FixQuality)int.Parse(message[5], CultureInfo.InvariantCulture);
-            var numberOfSatellites = int.Parse(message[6], CultureInfo.InvariantCulture);
+            FixQuality quality = message[5].TryToInt32(out var fixQuality) ? (FixQuality)fixQuality : FixQuality.Invalid;
+
+            message[6].TryToInt32(out var numberOfSatellites);
             if (!message[7].TryToDouble(out var hdop))
             {
                 return NmeaMessage.Empty;

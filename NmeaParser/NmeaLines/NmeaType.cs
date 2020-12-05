@@ -6,6 +6,7 @@
         Rma,
         Rmb,
         Rmc,
-        Gga
+        Gga,
+        Vtg
     }
 }
