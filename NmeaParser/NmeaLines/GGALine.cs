@@ -1,5 +1,7 @@
 ﻿using ExtendedGeoCoordinate;
+using SmartExtensions;
 using System;
+using System.Globalization;
 
 namespace NmeaParser.NmeaLines
 {
@@ -10,29 +12,50 @@ namespace NmeaParser.NmeaLines
         /// </summary>
         /// <param name="type">The message type</param>
         /// <param name="message">The NMEA message values.</param>
-        public GgaLine(TimeSpan fixTime,
-            double latitude,
-            double longitude,
-            double altitude,
-            string altitudeUnits,
-            FixQuality quality,
-            int numOfSatellites,
-            double hdop,
-            double geoIdSeparation,
-            string geoIdSeparationUnits,
-            TimeSpan timeSinceLastUpdate,
-            int dgpsStationId) : base(NmeaType.Gga)
+        public GgaLine(string nmeaLine) : base(NmeaType.Gga)
         {
-            FixTime = fixTime;
+            var message = nmeaLine.Split(',');
+            FixTime = Helper.StringToTimeSpan(message[0]);
+            
+            var latitude = Helper.StringToLatitude(message[1], message[2]);
+            var longitude = Helper.StringToLongitude(message[3], message[4]);
+            message[8].TryToDouble(out var altitude);
+            var altitudeUnits = message[9];
             Position = new GeoCoordinate(latitude, longitude, altitude, altitudeUnits);
-
+            
+            FixQuality quality = message[5].TryToInt32(out var fixQuality) ? (FixQuality)fixQuality : FixQuality.Invalid;
             Quality = quality;
-            NumberOfSatellites = numOfSatellites;
+
+            message[7].TryToDouble(out var hdop);
             Hdop = hdop;
-            GeoidalSeparation = geoIdSeparation;
-            GeoidalSeparationUnits = geoIdSeparationUnits;
-            TimeSinceLastDgpsUpdate = timeSinceLastUpdate;
-            DgpsStationId = dgpsStationId;
+            
+            if (message[12].TryToDouble(out var timeInSeconds))
+            {
+                TimeSinceLastDgpsUpdate = timeInSeconds.Seconds();
+            }
+            else
+            {
+                TimeSinceLastDgpsUpdate = TimeSpan.MaxValue;
+            }
+
+            if (message[13].Length > 0)
+            {
+                DgpsStationId = int.Parse(message[13], CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                DgpsStationId = -1;
+            }
+
+
+            message[6].TryToInt32(out var numberOfSatellites);
+            NumberOfSatellites = numberOfSatellites;
+
+            message[10].TryToDouble(out var geoidalSeparation);
+            GeoidalSeparation = geoidalSeparation;
+
+            var geoidalSeparationUnits = message[11];
+            GeoidalSeparationUnits = geoidalSeparationUnits;
         }
 
         /// <summary>

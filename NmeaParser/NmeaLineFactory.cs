@@ -68,58 +68,8 @@ namespace NmeaParser
 
         private NmeaMessage ParseGga(string nmeaLine)
         {
-            var message = nmeaLine.Split(',');
-            var fixTime = Helper.StringToTimeSpan(message[0]);
-            var latitude = Helper.StringToLatitude(message[1], message[2]);
-            var longitude = Helper.StringToLongitude(message[3], message[4]);
-            FixQuality quality = message[5].TryToInt32(out var fixQuality) ? (FixQuality)fixQuality : FixQuality.Invalid;
 
-            message[6].TryToInt32(out var numberOfSatellites);
-            if (!message[7].TryToDouble(out var hdop))
-            {
-                return NmeaMessage.Empty;
-            }
-
-            if (!message[8].TryToDouble(out var altitude))
-            {
-                return NmeaMessage.Empty;
-            }
-
-            var altitudeUnits = message[9];
-            message[10].TryToDouble(out var geoidalSeparation);
-            var geoidalSeparationUnits = message[11];
-            TimeSpan timeSinceLastUpdate;
-            if (message[12].TryToDouble(out var timeInSeconds))
-            {
-                timeSinceLastUpdate = timeInSeconds.Seconds();
-            }
-            else
-            {
-                timeSinceLastUpdate = TimeSpan.MaxValue;
-            }
-
-            int dgpsStationId;
-            if (message[13].Length > 0)
-            {
-                dgpsStationId = int.Parse(message[13], CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                dgpsStationId = -1;
-            }
-
-            return new GgaLine(fixTime,
-                latitude,
-                longitude,
-                altitude,
-                altitudeUnits,
-                quality,
-                numberOfSatellites,
-                hdop,
-                geoidalSeparation,
-                geoidalSeparationUnits,
-                timeSinceLastUpdate,
-                dgpsStationId);
+            return new GgaLine(nmeaLine);
         }
 
         private NmeaType GetNmeaType(string trimmed)
