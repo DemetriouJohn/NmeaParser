@@ -61,17 +61,6 @@ namespace NmeaParser
             return default;
         }
 
-        private NmeaMessage ParseVtg(string nmeaLine)
-        {
-            return new VTGLine(nmeaLine);
-        }
-
-        private NmeaMessage ParseGga(string nmeaLine)
-        {
-
-            return new GgaLine(nmeaLine);
-        }
-
         private NmeaType GetNmeaType(string trimmed)
         {
             if (trimmed.StartsWith(NmeaMessage.RMACode))
@@ -91,14 +80,14 @@ namespace NmeaParser
                 return NmeaType.Gga;
             }
 
-
             return default;
         }
 
-        private RMBLine ParseRmb(string nmeaLine)
-        {
-            return new RMBLine(nmeaLine);
-        }
+        private NmeaMessage ParseVtg(string nmeaLine) => new VTGLine(nmeaLine);
+
+        private NmeaMessage ParseGga(string nmeaLine) => new GgaLine(nmeaLine);
+
+        private RMBLine ParseRmb(string nmeaLine) => new RMBLine(nmeaLine);
 
         private RMCLine ParseRmc(string nmeaLine)
         {
