@@ -63,16 +63,7 @@ namespace NmeaParser
 
         private NmeaMessage ParseVtg(string nmeaLine)
         {
-            var message = nmeaLine.Split(',');
-            message[0].TryToDouble(out var courseTrue);
-            message[2].TryToDouble(out var courseMagnetic);
-            message[4].TryToDouble(out var speedKnots);
-            message[6].TryToDouble(out var speedKph);
-
-            return new VTGLine(courseTrue,
-                courseMagnetic,
-                speedKnots,
-                speedKph);
+            return new VTGLine(nmeaLine);
         }
 
         private NmeaMessage ParseGga(string nmeaLine)
