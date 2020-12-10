@@ -97,43 +97,7 @@ namespace NmeaParser
 
         private RMBLine ParseRmb(string nmeaLine)
         {
-            var nmeaValues = nmeaLine.Split(',');
-
-            var status = nmeaValues[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
-            double crossTrackError = double.NaN;
-            int originWaypointId, destinationWaypointId;
-            if (double.TryParse(nmeaValues[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var tmp))
-            {
-                crossTrackError = tmp;
-
-                if (nmeaValues[2] == "L") //Steer left
-                {
-                    crossTrackError *= -1;
-                }
-            }
-
-            originWaypointId = int.Parse(nmeaValues[3], CultureInfo.InvariantCulture);
-
-            destinationWaypointId = int.Parse(nmeaValues[4], CultureInfo.InvariantCulture);
-
-            var destinationLatitude = Helper.StringToLatitude(nmeaValues[5], nmeaValues[6]);
-            var destinationLongitude = Helper.StringToLongitude(nmeaValues[7], nmeaValues[8]);
-
-            double.TryParse(nmeaValues[9], NumberStyles.Float, CultureInfo.InvariantCulture, out var rangeToDestination);
-            double.TryParse(nmeaValues[10], NumberStyles.Float, CultureInfo.InvariantCulture, out var trueBearing);
-            double.TryParse(nmeaValues[11], NumberStyles.Float, CultureInfo.InvariantCulture, out var velocity);
-
-            var arrived = nmeaValues[12] == "A";
-            return new RMBLine(status,
-                crossTrackError,
-                originWaypointId,
-                destinationWaypointId,
-                destinationLatitude,
-                destinationLongitude,
-                rangeToDestination,
-                trueBearing,
-                velocity,
-                arrived);
+            return new RMBLine(nmeaLine);
         }
 
         private RMCLine ParseRmc(string nmeaLine)

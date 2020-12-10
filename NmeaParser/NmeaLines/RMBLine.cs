@@ -1,28 +1,49 @@
+using System.Globalization;
 using ExtendedGeoCoordinate;
+using SmartExtensions;
 
 namespace NmeaParser.NmeaLines
 {
     public class RMBLine : NmeaMessage
     {
-        public RMBLine(RmbDataStatus status,
-                   double crossTrackError,
-                   double originWaypointId,
-                   double destinationWaypointId,
-                   double destinationLatitude,
-                   double destinationLongitude,
-                   double rangeToDestination,
-                   double trueBearing,
-                   double velocity,
-                   bool arrived) : base(NmeaType.Rmb)
+        public RMBLine(string nmeaLine) : base(NmeaType.Rmb)
         {
-            Status = status;
-            CrossTrackError = crossTrackError;
+            var nmeaValues = nmeaLine.Split(',');
+
+            Status = nmeaValues[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
+
+            if (double.TryParse(nmeaValues[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var tmp))
+            {
+                CrossTrackError = tmp;
+
+                if (nmeaValues[2] == "L") //Steer left
+                {
+                    CrossTrackError *= -1;
+                }
+            }
+            else
+            {
+                CrossTrackError = double.NaN;
+            }
+
+            nmeaValues[3].TryToInt32(out var originWaypointId);
             OriginWaypointId = originWaypointId;
+
+            nmeaValues[4].TryToInt32(out var destinationWaypointId);
             DestinationWaypointId = destinationWaypointId;
+
+
+            nmeaValues[9].TryToDouble(out var rangeToDestination);
+            nmeaValues[10].TryToDouble(out var trueBearing);
             RangeToDestination = rangeToDestination;
             TrueBearing = trueBearing;
+            nmeaValues[11].TryToDouble(out var velocity);
             Velocity = velocity;
-            Arrived = arrived;
+
+            Arrived = nmeaValues[12] == "A";
+
+            var destinationLatitude = Helper.StringToLatitude(nmeaValues[5], nmeaValues[6]);
+            var destinationLongitude = Helper.StringToLongitude(nmeaValues[7], nmeaValues[8]);
             DestinationGeoCoordinate = new GeoCoordinate(destinationLatitude, destinationLongitude);
         }
 
