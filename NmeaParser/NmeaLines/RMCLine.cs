@@ -1,5 +1,7 @@
 using ExtendedGeoCoordinate;
+using SmartExtensions;
 using System;
+using System.Globalization;
 
 namespace NmeaParser.NmeaLines
 {
@@ -10,19 +12,40 @@ namespace NmeaParser.NmeaLines
         /// </summary>
         /// <param name="type">The message type</param>
         /// <param name="message">The NMEA message values.</param>
-        public RMCLine(DateTimeOffset fixTime,
-            bool active,
-            double latitude,
-            double longitude,
-            double speed,
-            double course,
-            double magneticVariation)
+        public RMCLine(string nmeaLine)
             : base(NmeaType.Rmc)
         {
-            FixTime = fixTime;
-            Active = active;
-            MagneticVariation = magneticVariation;
+            var nmeaValues = nmeaLine.Split(',');
+
+            if (nmeaValues[8].Length == 6 && nmeaValues[0].Length >= 6)
+            {
+                FixTime = new DateTimeOffset(int.Parse(nmeaValues[8].Substring(4, 2), CultureInfo.InvariantCulture) + 2000,
+                                       int.Parse(nmeaValues[8].Substring(2, 2), CultureInfo.InvariantCulture),
+                                       int.Parse(nmeaValues[8].Substring(0, 2), CultureInfo.InvariantCulture),
+                                       int.Parse(nmeaValues[0].Substring(0, 2), CultureInfo.InvariantCulture),
+                                       int.Parse(nmeaValues[0].Substring(2, 2), CultureInfo.InvariantCulture),
+                                       0, TimeSpan.Zero).AddSeconds(double.Parse(nmeaValues[0].Substring(4), CultureInfo.InvariantCulture));
+            }
+            else
+            {
+                FixTime = default;
+            }
+
+            Active = nmeaValues[1] == "A";
+
+            var latitude = Helper.StringToLatitude(nmeaValues[2], nmeaValues[3]);
+            var longitude = Helper.StringToLongitude(nmeaValues[4], nmeaValues[5]);
+            nmeaValues[6].TryToDouble(out var speed);
+            nmeaValues[7].TryToDouble(out var course);
             GeoCoordinate = new GeoCoordinate(latitude, longitude, 0, 0, 0, speed, course);
+
+            nmeaValues[9].TryToDouble(out var magneticVariation);
+            if (!double.IsNaN(magneticVariation) && nmeaValues[10] == "W")
+            {
+                magneticVariation *= -1;
+            }
+
+            MagneticVariation = magneticVariation;
         }
 
         /// <summary>

@@ -83,46 +83,6 @@ namespace NmeaParser
             return default;
         }
 
-        private NmeaMessage ParseVtg(string nmeaLine) => new VTGLine(nmeaLine);
-
-        private NmeaMessage ParseGga(string nmeaLine) => new GgaLine(nmeaLine);
-
-        private RMBLine ParseRmb(string nmeaLine) => new RMBLine(nmeaLine);
-
-        private RMCLine ParseRmc(string nmeaLine)
-        {
-            var nmeaValues = nmeaLine.Split(',');
-            DateTimeOffset fixTime = default;
-            if (nmeaValues[8].Length == 6 && nmeaValues[0].Length >= 6)
-            {
-                fixTime = new DateTimeOffset(int.Parse(nmeaValues[8].Substring(4, 2), CultureInfo.InvariantCulture) + 2000,
-                                       int.Parse(nmeaValues[8].Substring(2, 2), CultureInfo.InvariantCulture),
-                                       int.Parse(nmeaValues[8].Substring(0, 2), CultureInfo.InvariantCulture),
-                                       int.Parse(nmeaValues[0].Substring(0, 2), CultureInfo.InvariantCulture),
-                                       int.Parse(nmeaValues[0].Substring(2, 2), CultureInfo.InvariantCulture),
-                                       0, TimeSpan.Zero).AddSeconds(double.Parse(nmeaValues[0].Substring(4), CultureInfo.InvariantCulture));
-            }
-
-            var active = nmeaValues[1] == "A";
-            var latitude = Helper.StringToLatitude(nmeaValues[2], nmeaValues[3]);
-            var longitude = Helper.StringToLongitude(nmeaValues[4], nmeaValues[5]);
-            nmeaValues[6].TryToDouble(out var speed);
-            nmeaValues[7].TryToDouble(out var course);
-            nmeaValues[9].TryToDouble(out var magneticVariation);
-            if (!double.IsNaN(magneticVariation) && nmeaValues[10] == "W")
-            {
-                magneticVariation *= -1;
-            }
-
-            return new RMCLine(fixTime,
-                active,
-                latitude,
-                longitude,
-                speed,
-                course,
-                magneticVariation);
-        }
-
         private string RemoveConstellationAndChecksum(string nmeaLine)
         {
             var constellationRemoved = nmeaLine.Substring(3);
@@ -133,6 +93,13 @@ namespace NmeaParser
         {
             return nmeaLine.Substring(4);
         }
+
+        private NmeaMessage ParseVtg(string nmeaLine) => new VTGLine(nmeaLine);
+
+        private NmeaMessage ParseGga(string nmeaLine) => new GgaLine(nmeaLine);
+
+        private RMBLine ParseRmb(string nmeaLine) => new RMBLine(nmeaLine);
+
+        private RMCLine ParseRmc(string nmeaLine) => new RMCLine(nmeaLine);
     }
 }
-
