@@ -9,12 +9,12 @@ namespace NmeaParser
         /// <summary>
         /// The Latest RMB line parsed
         /// </summary>
-        public RMBLine Rmb { get; private set; }
+        public RmbLine Rmb { get; private set; }
 
         /// <summary>
         /// The Latest RMC line parsed
         /// </summary>
-        public RMCLine Rmc { get; private set; }
+        public RmcLine Rmc { get; private set; }
         /// <summary>
         /// The Latest GGA line parsed
         /// </summary>
@@ -22,7 +22,7 @@ namespace NmeaParser
         /// <summary>
         /// The Latest VTG line parsed
         /// </summary>
-        public VTGLine Vtg { get; private set; }
+        public VtgLine Vtg { get; private set; }
 
         /// <summary>
         /// Velocity towards destination in knots
@@ -54,13 +54,13 @@ namespace NmeaParser
         /// </summary>
         public double Course => CurrentPosition.Course;
 
-        internal void Handle(RMBLine nmeaMessage)
+        internal void Handle(RmbLine nmeaMessage)
         {
             Rmb = nmeaMessage;
             VelocityInKnots = nmeaMessage.Velocity;
         }
 
-        internal void Handle(VTGLine nmeaMessage)
+        internal void Handle(VtgLine nmeaMessage)
         {
             Vtg = nmeaMessage;
             VelocityInKnots = nmeaMessage.SpeedKnots;
@@ -87,7 +87,7 @@ namespace NmeaParser
                 CurrentPosition.Course);
         }
 
-        internal void Handle(RMCLine nmeaMessage)
+        internal void Handle(RmcLine nmeaMessage)
         {
             Rmc = nmeaMessage;
             CurrentPosition = nmeaMessage.GeoCoordinate;

@@ -32,7 +32,7 @@ namespace NmeaParser.Tests
 
             var nmeaMsg = new NmeaLineFactory().ParseLine(line);
             Assert.Equal(NmeaType.Rmb, nmeaMsg.NmeaType);
-            var rmb = (RMBLine)nmeaMsg;
+            var rmb = (RmbLine)nmeaMsg;
             Assert.Equal(RmbDataStatus.Ok, rmb.Status);
             Assert.Equal(-0.66, rmb.CrossTrackError);
             Assert.Equal(3, rmb.OriginWaypointId);
@@ -51,7 +51,7 @@ namespace NmeaParser.Tests
 
             var nmeaMsg = new NmeaLineFactory().ParseLine(line);
             Assert.Equal(NmeaType.Rmc, nmeaMsg.NmeaType);
-            var rmc = (RMCLine)nmeaMsg;
+            var rmc = (RmcLine)nmeaMsg;
             Assert.Equal(new DateTimeOffset(2017, 12, 20, 23, 10, 11, TimeSpan.Zero), rmc.FixTime);
             Assert.Equal(34.057860634, rmc.GeoCoordinate.Latitude, 10);
             Assert.Equal(-117.19682109916667, rmc.GeoCoordinate.Longitude, 10);

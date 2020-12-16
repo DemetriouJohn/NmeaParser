@@ -2,9 +2,9 @@
 
 namespace NmeaParser.NmeaLines
 {
-    public class VTGLine : NmeaMessage
+    public sealed class VtgLine : NmeaMessage
     {
-        public VTGLine(string nmeaLine)
+        public VtgLine(string nmeaLine)
             : base(NmeaType.Vtg)
         {
             var message = nmeaLine.Split(',');

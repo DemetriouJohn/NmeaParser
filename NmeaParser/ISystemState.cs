@@ -7,13 +7,14 @@ namespace NmeaParser
     public interface ISystemState
     {
         double Course { get; }
+        double Speed { get; }
+        double VelocityInKnots { get; }
         GeoCoordinate CurrentPosition { get; }
         DateTimeOffset FixTime { get; }
         double MagneticVariation { get; }
-        RMBLine Rmb { get; }
-        RMCLine Rmc { get; }
-        double Speed { get; }
-        double VelocityInKnots { get; }
-        VTGLine Vtg { get; }
+        RmbLine Rmb { get; }
+        RmcLine Rmc { get; }
+        VtgLine Vtg { get; }
+        GgaLine Gga { get; }
     }
 }

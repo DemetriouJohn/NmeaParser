@@ -94,12 +94,12 @@ namespace NmeaParser
             return nmeaLine.Substring(4);
         }
 
-        private NmeaMessage ParseVtg(string nmeaLine) => new VTGLine(nmeaLine);
+        private NmeaMessage ParseVtg(string nmeaLine) => new VtgLine(nmeaLine);
 
         private NmeaMessage ParseGga(string nmeaLine) => new GgaLine(nmeaLine);
 
-        private RMBLine ParseRmb(string nmeaLine) => new RMBLine(nmeaLine);
+        private RmbLine ParseRmb(string nmeaLine) => new RmbLine(nmeaLine);
 
-        private RMCLine ParseRmc(string nmeaLine) => new RMCLine(nmeaLine);
+        private RmcLine ParseRmc(string nmeaLine) => new RmcLine(nmeaLine);
     }
 }

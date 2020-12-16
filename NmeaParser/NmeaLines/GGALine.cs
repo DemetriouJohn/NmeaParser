@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace NmeaParser.NmeaLines
 {
-    public class GgaLine : NmeaMessage
+    public sealed class GgaLine : NmeaMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GgaLine"/> class.

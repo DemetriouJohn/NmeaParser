@@ -5,14 +5,14 @@ using System.Globalization;
 
 namespace NmeaParser.NmeaLines
 {
-    public class RMCLine : NmeaMessage
+    public sealed class RmcLine : NmeaMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Rmc"/> class.
         /// </summary>
         /// <param name="type">The message type</param>
         /// <param name="message">The NMEA message values.</param>
-        public RMCLine(string nmeaLine)
+        public RmcLine(string nmeaLine)
             : base(NmeaType.Rmc)
         {
             var nmeaValues = nmeaLine.Split(',');

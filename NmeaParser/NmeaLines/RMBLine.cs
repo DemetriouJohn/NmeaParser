@@ -4,9 +4,9 @@ using SmartExtensions;
 
 namespace NmeaParser.NmeaLines
 {
-    public class RMBLine : NmeaMessage
+    public sealed class RmbLine : NmeaMessage
     {
-        public RMBLine(string nmeaLine) : base(NmeaType.Rmb)
+        public RmbLine(string nmeaLine) : base(NmeaType.Rmb)
         {
             var nmeaValues = nmeaLine.Split(',');
 
