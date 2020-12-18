@@ -10,7 +10,7 @@ namespace NmeaParser
         double Speed { get; }
         double VelocityInKnots { get; }
         GeoCoordinate CurrentPosition { get; }
-        DateTimeOffset FixTime { get; }
+        DateTime FixTime { get; }
         double MagneticVariation { get; }
         RmbLine Rmb { get; }
         RmcLine Rmc { get; }

@@ -19,12 +19,12 @@ namespace NmeaParser.NmeaLines
 
             if (nmeaValues[8].Length == 6 && nmeaValues[0].Length >= 6)
             {
-                FixTime = new DateTimeOffset(int.Parse(nmeaValues[8].Substring(4, 2), CultureInfo.InvariantCulture) + 2000,
+                FixTime = new DateTime(int.Parse(nmeaValues[8].Substring(4, 2), CultureInfo.InvariantCulture) + 2000,
                                        int.Parse(nmeaValues[8].Substring(2, 2), CultureInfo.InvariantCulture),
                                        int.Parse(nmeaValues[8].Substring(0, 2), CultureInfo.InvariantCulture),
                                        int.Parse(nmeaValues[0].Substring(0, 2), CultureInfo.InvariantCulture),
                                        int.Parse(nmeaValues[0].Substring(2, 2), CultureInfo.InvariantCulture),
-                                       0, TimeSpan.Zero).AddSeconds(double.Parse(nmeaValues[0].Substring(4), CultureInfo.InvariantCulture));
+                                       int.Parse(nmeaValues[0].Substring(4), CultureInfo.InvariantCulture));
             }
             else
             {
@@ -51,7 +51,7 @@ namespace NmeaParser.NmeaLines
         /// <summary>
         /// Fix Time
         /// </summary>
-        public DateTimeOffset FixTime { get; }
+        public DateTime FixTime { get; }
 
         /// <summary>
         /// Gets a value whether the device is active

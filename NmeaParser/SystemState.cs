@@ -28,11 +28,13 @@ namespace NmeaParser
         /// Velocity towards destination in knots
         /// </summary>
         public double VelocityInKnots { get; private set; }
+        public GllLine Gll { get; private set; }
 
         /// <summary>
         /// Current Position
         /// </summary>
         public GeoCoordinate CurrentPosition { get; private set; }
+        public GllMode Mode { get; private set; }
 
         /// <summary>
         /// Magnetic Variation
@@ -42,7 +44,7 @@ namespace NmeaParser
         /// <summary>
         /// Fix Time
         /// </summary>
-        public DateTimeOffset FixTime { get; private set; }
+        public DateTime FixTime { get; private set; }
 
         /// <summary>
         /// System Speed
@@ -92,6 +94,23 @@ namespace NmeaParser
             Rmc = nmeaMessage;
             CurrentPosition = nmeaMessage.GeoCoordinate;
             MagneticVariation = nmeaMessage.MagneticVariation;
+            FixTime = nmeaMessage.FixTime;
+        }
+
+        internal void Handle(GllLine nmeaMessage)
+        {
+            Gll = nmeaMessage;
+            CurrentPosition = new GeoCoordinate(
+                nmeaMessage.Position.Latitude,
+                nmeaMessage.Position.Longitude,
+                CurrentPosition.Altitude,
+                CurrentPosition.AltitudeUnits,
+                CurrentPosition.HorizontalAccuracy,
+                CurrentPosition.VerticalAccuracy,
+                CurrentPosition.Speed,
+                CurrentPosition.Course);
+
+            Mode = nmeaMessage.Mode;
             FixTime = nmeaMessage.FixTime;
         }
     }
