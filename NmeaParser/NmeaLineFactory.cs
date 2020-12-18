@@ -43,7 +43,6 @@ namespace NmeaParser
             trimmed = RemoveNmeaDescription(trimmed);
             switch (nmeaType)
             {
-
                 case NmeaType.Rma:
                     break;
                 case NmeaType.Rmb:

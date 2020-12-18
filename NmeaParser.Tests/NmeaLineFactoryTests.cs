@@ -47,18 +47,19 @@ namespace NmeaParser.Tests
         [Fact]
         public void ParseRmcLine()
         {
-            const string line = "$GNRMC,231011.00,A,3403.47163804,N,11711.80926595,W,0.019,11.218,201217,12.0187,E,D*01";
-
-            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
-            Assert.Equal(NmeaType.Rmc, nmeaMsg.NmeaType);
-            var rmc = (RmcLine)nmeaMsg;
-            Assert.Equal(new DateTimeOffset(2017, 12, 20, 23, 10, 11, TimeSpan.Zero), rmc.FixTime);
-            Assert.Equal(34.057860634, rmc.GeoCoordinate.Latitude, 10);
-            Assert.Equal(-117.19682109916667, rmc.GeoCoordinate.Longitude, 10);
-            Assert.True(rmc.Active);
-            Assert.Equal(11.218, rmc.GeoCoordinate.Course);
-            Assert.Equal(12.0187, rmc.MagneticVariation);
-            Assert.Equal(0.019, rmc.GeoCoordinate.Speed);
+            const string line = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130917,011.3,E*65";
+            {
+                var nmeaMsg = new NmeaLineFactory().ParseLine(line);
+                Assert.Equal(NmeaType.Rmc, nmeaMsg.NmeaType);
+                var rmc = (RmcLine)nmeaMsg;
+                Assert.Equal(new DateTime(2017, 9, 13, 8, 18, 36), rmc.FixTime);
+                Assert.Equal(-37.8608333333, rmc.GeoCoordinate.Latitude, 10);
+                Assert.Equal(145.1226666667, rmc.GeoCoordinate.Longitude, 10);
+                Assert.True(rmc.Active);
+                Assert.Equal(360, rmc.GeoCoordinate.Course);
+                Assert.Equal(11.3, rmc.MagneticVariation);
+                Assert.Equal(0, rmc.GeoCoordinate.Speed);
+            }
         }
 
         [Fact]
