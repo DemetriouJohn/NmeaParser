@@ -12,9 +12,11 @@ namespace NmeaParser
         GeoCoordinate CurrentPosition { get; }
         DateTime FixTime { get; }
         double MagneticVariation { get; }
+        FixData CurrentFix { get; }
         RmbLine Rmb { get; }
         RmcLine Rmc { get; }
         VtgLine Vtg { get; }
         GgaLine Gga { get; }
+        GSALine Gsa { get; }
     }
 }

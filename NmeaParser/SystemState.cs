@@ -15,25 +15,40 @@ namespace NmeaParser
         /// The Latest RMC line parsed
         /// </summary>
         public RmcLine Rmc { get; private set; }
+        
         /// <summary>
         /// The Latest GGA line parsed
         /// </summary>
         public GgaLine Gga { get; private set; }
+        
         /// <summary>
         /// The Latest VTG line parsed
         /// </summary>
         public VtgLine Vtg { get; private set; }
+        
+        /// <summary>
+        /// The Latest GSA line parsed
+        /// </summary>
+        public GSALine Gsa { get; private set; }
+        
+        /// <summary>
+        /// The Latest GLL line parsed
+        /// </summary>
+        public GllLine Gll { get; private set; }
 
         /// <summary>
         /// Velocity towards destination in knots
         /// </summary>
         public double VelocityInKnots { get; private set; }
-        public GllLine Gll { get; private set; }
 
         /// <summary>
         /// Current Position
         /// </summary>
         public GeoCoordinate CurrentPosition { get; private set; }
+
+        /// <summary>
+        /// Current GLL mode
+        /// </summary>
         public GllMode Mode { get; private set; }
 
         /// <summary>
@@ -55,6 +70,11 @@ namespace NmeaParser
         /// System Course
         /// </summary>
         public double Course => CurrentPosition.Course;
+
+        /// <summary>
+        /// System current fix data
+        /// </summary>
+        public FixData CurrentFix { get; private set; }
 
         internal void Handle(RmbLine nmeaMessage)
         {
@@ -112,6 +132,18 @@ namespace NmeaParser
 
             Mode = nmeaMessage.Mode;
             FixTime = nmeaMessage.FixTime;
+        }
+
+        internal void Handle(GSALine nmeaMessage)
+        {
+            Gsa = nmeaMessage;
+            CurrentFix = new FixData(
+                nmeaMessage.IsAuto,
+                nmeaMessage.Status,
+                nmeaMessage.PDOP,
+                nmeaMessage.HDOP,
+                nmeaMessage.VDOP,
+                nmeaMessage.SatelliteIds);
         }
     }
 }

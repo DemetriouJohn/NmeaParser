@@ -8,6 +8,7 @@
         internal const string GGACode = "GGA";
         internal const string VTGCode = "VTG";
         internal const string GllCode = "GLL";
+        internal const string GSACode = "GSA";
 
         internal static readonly NmeaMessage Empty = new NmeaMessage();
 

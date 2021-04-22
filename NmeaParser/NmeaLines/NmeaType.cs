@@ -8,6 +8,7 @@
         Rmc,
         Gga,
         Vtg,
-        Gll
+        Gll,
+        Gsa,
     }
 }

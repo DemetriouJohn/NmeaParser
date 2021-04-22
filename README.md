@@ -11,7 +11,8 @@ For each upcoming version there are milestones to explain what new features will
 2. RMC
 3. GGA
 4. VTG
-4. GLL
+5. GLL
+6. GSA
 
 ## Contributing
 Contributions are always welcome! Please feel free to submit pull requests and to open issues. I prefer to have tests on all public methods if possible.
