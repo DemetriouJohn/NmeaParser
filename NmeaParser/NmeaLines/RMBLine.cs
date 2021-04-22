@@ -6,17 +6,15 @@ namespace NmeaParser.NmeaLines
 {
     public sealed class RmbLine : NmeaMessage
     {
-        public RmbLine(string nmeaLine) : base(NmeaType.Rmb)
+        public RmbLine(string nmeaLine) : base(NmeaType.Rmb, nmeaLine)
         {
-            var nmeaValues = nmeaLine.Split(',');
+            Status = message[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
 
-            Status = nmeaValues[0] == "A" ? RmbDataStatus.Ok : RmbDataStatus.Warning;
-
-            if (double.TryParse(nmeaValues[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var tmp))
+            if (double.TryParse(message[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var tmp))
             {
                 CrossTrackError = tmp;
 
-                if (nmeaValues[2] == "L") //Steer left
+                if (message[2] == "L") //Steer left
                 {
                     CrossTrackError *= -1;
                 }
@@ -26,24 +24,24 @@ namespace NmeaParser.NmeaLines
                 CrossTrackError = double.NaN;
             }
 
-            nmeaValues[3].TryToInt32(out var originWaypointId);
+            message[3].TryToInt32(out var originWaypointId);
             OriginWaypointId = originWaypointId;
 
-            nmeaValues[4].TryToInt32(out var destinationWaypointId);
+            message[4].TryToInt32(out var destinationWaypointId);
             DestinationWaypointId = destinationWaypointId;
 
 
-            nmeaValues[9].TryToDouble(out var rangeToDestination);
-            nmeaValues[10].TryToDouble(out var trueBearing);
+            message[9].TryToDouble(out var rangeToDestination);
+            message[10].TryToDouble(out var trueBearing);
             RangeToDestination = rangeToDestination;
             TrueBearing = trueBearing;
-            nmeaValues[11].TryToDouble(out var velocity);
+            message[11].TryToDouble(out var velocity);
             Velocity = velocity;
 
-            Arrived = nmeaValues[12] == "A";
+            Arrived = message[12] == "A";
 
-            var destinationLatitude = Helper.StringToLatitude(nmeaValues[5], nmeaValues[6]);
-            var destinationLongitude = Helper.StringToLongitude(nmeaValues[7], nmeaValues[8]);
+            var destinationLatitude = Helper.StringToLatitude(message[5], message[6]);
+            var destinationLongitude = Helper.StringToLongitude(message[7], message[8]);
             DestinationGeoCoordinate = new GeoCoordinate(destinationLatitude, destinationLongitude);
         }
 

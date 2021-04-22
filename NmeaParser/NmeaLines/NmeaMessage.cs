@@ -16,13 +16,17 @@
             IsEmpty = true;
         }
 
-        public NmeaMessage(NmeaType nmeaType)
+        public NmeaMessage(NmeaType nmeaType, string nmeaLine)
         {
             IsEmpty = false;
             NmeaType = nmeaType;
+            message = nmeaLine.Split(',');
         }
 
         public NmeaType NmeaType { get; }
+
+        protected readonly string[] message;
+
         public bool IsEmpty { get; }
     }
 }

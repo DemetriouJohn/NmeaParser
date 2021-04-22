@@ -5,9 +5,8 @@ namespace NmeaParser.NmeaLines
 {
     public sealed class GllLine : NmeaMessage
     {
-        public GllLine(string nmeaLine) : base(NmeaType.Gll)
+        public GllLine(string nmeaLine) : base(NmeaType.Gll, nmeaLine)
         {
-            var message = nmeaLine.Split(',');
             var latitude = Helper.StringToLatitude(message[0], message[1]);
             var longitude = Helper.StringToLongitude(message[2], message[3]);
             Position = new GeoCoordinate(latitude, longitude);
