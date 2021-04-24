@@ -2,6 +2,7 @@ using Xunit;
 using NmeaParser.NmeaLines;
 using System;
 using SmartExtensions;
+using NmeaParser.NmeaLines.Enums;
 
 namespace NmeaParser.Tests
 {

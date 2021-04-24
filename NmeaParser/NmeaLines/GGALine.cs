@@ -1,4 +1,5 @@
 ﻿using ExtendedGeoCoordinate;
+using NmeaParser.NmeaLines.Enums;
 using SmartExtensions;
 using System;
 using System.Globalization;

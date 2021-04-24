@@ -1,6 +1,7 @@
-using System.Globalization;
 using ExtendedGeoCoordinate;
+using NmeaParser.NmeaLines.Enums;
 using SmartExtensions;
+using System.Globalization;
 
 namespace NmeaParser.NmeaLines
 {

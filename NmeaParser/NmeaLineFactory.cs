@@ -1,7 +1,5 @@
 ﻿using NmeaParser.NmeaLines;
-using SmartExtensions;
 using System;
-using System.Globalization;
 
 namespace NmeaParser
 {
