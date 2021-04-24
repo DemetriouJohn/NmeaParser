@@ -85,5 +85,23 @@ namespace NmeaParser.Tests
             Assert.Equal(1.Seconds(), gga.TimeSinceLastDgpsUpdate);
             Assert.Equal(0, gga.DgpsStationId);
         }
+
+        [Fact]
+        public void ParseGsaLine()
+        {
+            const string line = "$GPGSA,A,3,04,05,,09,12,,,24,,,,,2.5,1.3,2.1*39";
+
+            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
+            Assert.Equal(NmeaType.Gsa, nmeaMsg.NmeaType);
+            var gsa = (GsaLine)nmeaMsg;
+
+            Assert.Equal(FixType.Fix3D, gsa.Fix);
+            var expectedSatIds = new[] { 04, 05, 09, 12, 24 };
+            Assert.Equal(expectedSatIds, gsa.SatelliteIDs);
+            Assert.Equal(2.5, gsa.Pdop);
+            Assert.Equal(1.3, gsa.Hdop);
+            Assert.Equal(2.1, gsa.Vdop);
+
+        }
     }
 }

@@ -53,6 +53,8 @@ namespace NmeaParser
                     return ParseVtg(trimmed);
                 case NmeaType.Gll:
                     return ParseGll(trimmed);
+                case NmeaType.Gsa:
+                    return ParseGsa(trimmed);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nmeaType));
             }
@@ -82,7 +84,10 @@ namespace NmeaParser
             {
                 return NmeaType.Gll;
             }
-
+            else if (trimmed.StartsWith(NmeaMessage.GsaCode))
+            {
+                return NmeaType.Gsa;
+            }
             return default;
         }
 
@@ -106,5 +111,6 @@ namespace NmeaParser
         private RmcLine ParseRmc(string nmeaLine) => new RmcLine(nmeaLine);
 
         private GllLine ParseGll(string nmeaLine) => new GllLine(nmeaLine);
+        private GsaLine ParseGsa(string nmeaLine) => new GsaLine(nmeaLine);
     }
 }
