@@ -2,6 +2,10 @@
 
 ![.NET Core Build and Run Unit Tests](https://github.com/DevsAnon/NmeaParser/workflows/.NET%20Core%20Build%20and%20Run%20Unit%20Tests/badge.svg?event=push)
 
+## How to install nuget packge
+Run the following on package manager
+`Install-Package NmeaParser -Version 2.2.0`
+
 ## Upcoming versions
 For each upcoming version there are milestones to explain what new features will be added per version. For any completed issue a new minor version will be deployed to nuget.
 
