@@ -9,6 +9,7 @@
         internal const string VTGCode = "VTG";
         internal const string GllCode = "GLL";
         internal const string GsaCode = "GSA";
+        internal const string GSVCode = "GSV";
 
         internal static readonly NmeaMessage Empty = new NmeaMessage();
 

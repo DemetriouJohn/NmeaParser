@@ -9,6 +9,7 @@
         Gga,
         Vtg,
         Gll,
-        Gsa
+        Gsa,
+        Gsv,
     }
 }

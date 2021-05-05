@@ -103,5 +103,43 @@ namespace NmeaParser.Tests
             Assert.Equal(2.1, gsa.Vdop);
 
         }
+
+        [Fact]
+        public void ParseGsvLine()
+        {
+            const string line = "$GPGSV,2,1,08,01,40,083,46,02,17,308,41,12,07,344,39,14,22,228,45*75";
+            var nmeaMsg = new NmeaLineFactory().ParseLine(line);
+            Assert.Equal(NmeaType.Gsv, nmeaMsg.NmeaType);
+            var gsv = (GsvLine)nmeaMsg;
+
+            Assert.Equal(2, gsv.MessageCount);
+            Assert.Equal(1, gsv.MessageIndex);
+            Assert.Equal(8, gsv.SatelliteCount);
+            Assert.Equal(4, gsv.Satellites.Length);
+
+            //01,40,083,46
+            Assert.Equal(1, gsv.Satellites[0].ID);
+            Assert.Equal(40, gsv.Satellites[0].Elevation);
+            Assert.Equal(83, gsv.Satellites[0].Azimuth);
+            Assert.Equal(46, gsv.Satellites[0].SNR);
+
+            //02,17,308,41
+            Assert.Equal(2, gsv.Satellites[1].ID);
+            Assert.Equal(17, gsv.Satellites[1].Elevation);
+            Assert.Equal(308, gsv.Satellites[1].Azimuth);
+            Assert.Equal(41, gsv.Satellites[1].SNR);
+
+            //12,07,344,39
+            Assert.Equal(12, gsv.Satellites[2].ID);
+            Assert.Equal(7, gsv.Satellites[2].Elevation);
+            Assert.Equal(344, gsv.Satellites[2].Azimuth);
+            Assert.Equal(39, gsv.Satellites[2].SNR);
+
+            //14,22,228,45
+            Assert.Equal(14, gsv.Satellites[3].ID);
+            Assert.Equal(22, gsv.Satellites[3].Elevation);
+            Assert.Equal(228, gsv.Satellites[3].Azimuth);
+            Assert.Equal(45, gsv.Satellites[3].SNR);
+        }
     }
 }
